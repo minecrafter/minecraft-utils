@@ -1,0 +1,56 @@
+{% from "common/macros.html" import render_form %}
+{% extends "base.html" %}
+
+{% block title %}Configuration Checker{% endblock %}
+
+{% block body %}
+      <h1>Configuration Checker</h1>
+      <p>Paste your YAML below, select the type of configuration being checked, and click "Check".</p>
+      <p><strong>Warning:</strong> This tool will help catch common mistakes, but it can not catch all of them. Problems this tool finds may not be an issue for your configuration. Review the problems found for yourself before you act on the issue!</p>
+
+      {% with messages = get_flashed_messages(category_filter=["formerror"]) %}
+      {% if messages %}
+      <div class="alert alert-danger">
+          Some errors were encountered while processing your request:
+          <ul>
+      {% for message in messages %}
+              <li>{{ message }}</li>
+      {% endfor %}
+          </ul>
+      </div>
+      {% endif %}
+      {% endwith %}
+      {% with messages = get_flashed_messages(category_filter=["urgent"]) %}
+      {% if messages %}
+      <div class="alert alert-danger">
+          Some urgent problems were found. These should be fixed as soon as possible.
+          <ul>
+      {% for message in messages %}
+              <li>{{ message }}</li>
+      {% endfor %}
+          </ul>
+      </div>
+      {% endif %}
+      {% endwith %}
+      {% with messages = get_flashed_messages(category_filter=["warning"]) %}
+      {% if messages %}
+      <div class="alert alert-warning">
+          Some low-priority problems were found. These are purely informational, and do not mean there is an issue.
+          <ul>
+      {% for message in messages %}
+              <li>{{ message }}</li>
+      {% endfor %}
+          </ul>
+      </div>
+      {% endif %}
+      {% endwith %}
+      {% if validated %}
+      <div class="alert alert-success">Congratulations! Your configuration has been validated successfully.</div>
+      {% endif %}
+
+      <div class="row">
+          <div class="col-md-4">
+              {{ render_form(form, action_url='', action_text='Validate', btn_class='btn btn-primary', extra="enctype=multipart/form-data") }}
+          </div>
+      </div>
+{% endblock %}

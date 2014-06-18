@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Main Page{% endblock %}
+
+{% block beforecontainer %}
+      <div class="jumbotron">
+          <div class="container">
+              <h1>Minecraft Utilities</h1>
+              <p>This site hosts a variety of Minecraft-related utilities.</p>
+          </div>
+      </div>
+{% endblock %}
+
+{% block body %}
+      <h2>BungeeCord</h2>
+      <ul>
+          <li><a href="/bungeecord/pluginhelper">BungeeCord Plugin Helper</a>: Easily get started with creating BungeeCord plugins. Maven POM included.</li>
+      </ul>
+      <h2>Tools</h2>
+      <ul>
+          <li><a href="/yamlchecker">YAML Checker</a>: Check your configuration. Supports BungeeCord and RedisBungee configuration.</li>
+      </ul>
+{% endblock %}

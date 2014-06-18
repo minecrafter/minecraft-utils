@@ -1,0 +1,28 @@
+{% from "common/macros.html" import render_form %}
+{% extends "base.html" %}
+
+{% block title %}BungeeCord Plugin Helper{% endblock %}
+
+{% block body %}
+      <h1>BungeeCord Plugin Helper</h1>
+      <p>Just fill in the form below and click "Generate". You will get a ZIP file containing everything you need to start coding a BungeeCord plugin.</p>
+
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <div class="alert alert-danger">
+          <strong>Oops!</strong> Looks like we have some issues:
+          <ul>
+      {% for message in messages %}
+              <li>{{ message }}</li>
+      {% endfor %}
+          </ul>
+      </div>
+      {% endif %}
+      {% endwith %}
+
+      <div class="row">
+          <div class="col-md-4">
+              {{ render_form(form, action_url='', action_text='Generate', btn_class='btn btn-primary') }}
+          </div>
+      </div>
+{% endblock %}

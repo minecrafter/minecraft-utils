@@ -1,0 +1,12 @@
+package {{ package }};
+
+import net.md_5.bungee.api.plugin.Plugin;
+
+public class {{ name }} extends Plugin {
+{% if include_listener %}
+    @Override
+    public void onEnable() {
+        getProxy().getPluginManager().registerListener(this, new {{ name }}Listener());
+    }
+{% endif %}
+}
