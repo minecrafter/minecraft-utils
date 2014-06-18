@@ -1,6 +1,6 @@
 # minecraft-utils
 
-The source code to [minecraft.imaginarycode.com/utilities](http://minecraft.imaginarycode.com/utilities).
+The source code to [tools.imaginarycode.com](http://tools.imaginarycode.com).
 
 ## Requirements
 
