@@ -18,7 +18,8 @@ class JavaPackageValidator(object):
         if not self._check_package_name(field.data):
             raise wtforms.validators.ValidationError("Field does not have a valid Java package name")
 
-    def _check_package_name(self, package):
+    @staticmethod
+    def _check_package_name(package):
         tree = package.split('.')
 
         if len(tree) == 0:

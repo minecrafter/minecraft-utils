@@ -28,13 +28,13 @@ class BungeeCordConfigChecker(ConfigChecker):
         else:
             # Servers just need addresses.
             server_addresses_declared = {}
-            for server in config['servers']:
-                if not self._is_defined(config['servers'][server], "address"):
+            for server, value in config['servers'].items():
+                if not self._is_defined(value, "address"):
                     yield {"message": "Server " + server + " does not have an address!", "class": "urgent"}
-                elif config['servers'][server]['address'] in server_addresses_declared:
+                elif value['address'] in server_addresses_declared:
                     yield {"message": "Server " + server + " has a duplicate IP address (" +
-                                      config['servers'][server]['address'] + "), used by server " +
-                                      server_addresses_declared[config['servers'][server]['address']] + ".",
+                                      value['address'] + "), used by server " +
+                                      server_addresses_declared[value['address']] + ".",
                            "class": "warning"}
                 else:
                     server_addresses_declared[config['servers'][server]['address']] = server
@@ -104,7 +104,17 @@ class BungeeCordConfigChecker(ConfigChecker):
                                                ".",
                                     "class": "warning"}
 
-    def _is_section_defined(self, config, sect):
+        # Check for misplaced server sections.
+        for section, value in config.items():
+            if isinstance(value, dict):
+                if 'address' in value:
+                    yield {
+                        "message": "A possible misplaced server (" + section + ") was found.",
+                        "class": "warning"
+                    }
+
+    @staticmethod
+    def _is_section_defined(config, sect):
         return sect in config and config[sect] is not None and len(config[sect]) > 0
 
 
@@ -147,8 +157,8 @@ class YamlCheckerView(FlaskView):
         except YAMLError:
             flash(
                 Markup('A syntax error was detected. You may want to use '
-                '<a href="http://yaml-online-parser.appspot.com/">this tool</a> '
-                'to determine the problem.'),
+                       '<a href="http://yaml-online-parser.appspot.com/">this tool</a> '
+                       'to determine the problem.'),
                 "formerror")
             return render_template("yamlchecker/main.html", form=form)
 
