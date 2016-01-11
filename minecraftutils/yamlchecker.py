@@ -71,9 +71,7 @@ class BungeeCordConfigChecker(ConfigChecker):
                 yield {"message": "Your listeners are not formatted properly. Listeners are formatted as a list.",
                        "class": "urgent"}
             else:
-                number = 0
-                for listener in config['listeners']:
-                    number += 1
+                for number, listener in enumerate(config['listeners']):
                     if not self._is_defined(listener, "host"):
                         yield {"message": "Listener #" + str(number) + " does not have a host associated!",
                                "class": "urgent"}

@@ -19,9 +19,11 @@ except IOError:
 
 from bungeecord import PluginHelperView
 from yamlchecker import YamlCheckerView
+from superbvote import GAListenerToSuperbVoteView
 
 PluginHelperView.register(app)
 YamlCheckerView.register(app)
+GAListenerToSuperbVoteView.register(app)
 
 
 @app.route("/")

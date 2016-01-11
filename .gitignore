@@ -1,3 +1,4 @@
 minecraftutils/.secret_key
 *.iml
 .idea
+*.pyc
