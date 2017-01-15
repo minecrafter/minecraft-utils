@@ -1,1 +1,1 @@
-web: gunicorn minecraftutils.minecraftutils --log-file -
+web: gunicorn minecraftutils.minecraftutils:app --log-file -
