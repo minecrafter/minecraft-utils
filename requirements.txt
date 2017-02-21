@@ -1,5 +1,5 @@
-Flask==0.10.1
+Flask==0.12
 Flask-Classy==0.6.10
-Flask-WTF==0.9.5
-PyYAML==3.11
+Flask-WTF==0.14.2
+PyYAML==3.12
 gunicorn==19.6.0
