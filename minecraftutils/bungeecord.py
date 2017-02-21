@@ -1,10 +1,10 @@
 from tempfile import TemporaryFile
 from zipfile import ZipFile, ZIP_DEFLATED
 from flask import render_template, request, flash, get_flashed_messages, make_response
-from flask.ext.classy import FlaskView
+from flask_classy import FlaskView
 from wtforms.fields import BooleanField, StringField
 import wtforms.validators
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 
 
 class AlphanumericValidator(object):
@@ -32,7 +32,7 @@ class JavaPackageValidator(object):
         return True
 
 
-class PluginHelperForm(Form):
+class PluginHelperForm(FlaskForm):
     name = StringField("Plugin name", [wtforms.validators.data_required(),
                                        AlphanumericValidator()])
     package = StringField("Plugin package", [wtforms.validators.data_required(),

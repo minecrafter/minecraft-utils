@@ -1,6 +1,6 @@
 from flask import render_template, request, flash, get_flashed_messages
-from flask.ext.classy import FlaskView
-from flask_wtf import Form
+from flask_classy import FlaskView
+from flask_wtf import FlaskForm
 from flask_wtf.file import FileField
 from markupsafe import Markup
 from wtforms import TextAreaField, SelectField
@@ -126,7 +126,7 @@ class RedisBungeeConfigChecker(ConfigChecker):
                 yield {"message": required + " is empty!", "class": "urgent"}
 
 
-class YamlCheckerForm(Form):
+class YamlCheckerForm(FlaskForm):
     yaml_file = FileField("Upload your configuration", [wtforms.validators.input_required()])
     type = SelectField("Configuration type", [wtforms.validators.required()],
                        choices=[("bungeecord", "BungeeCord"), ("redisbungee", "RedisBungee")])

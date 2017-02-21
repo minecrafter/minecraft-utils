@@ -1,6 +1,6 @@
 from flask import render_template, request, flash, get_flashed_messages, make_response
-from flask.ext.classy import FlaskView
-from flask_wtf import Form
+from flask_classy import FlaskView
+from flask_wtf import FlaskForm
 from flask_wtf.file import FileField
 from markupsafe import Markup
 from wtforms import TextAreaField, SelectField
@@ -86,7 +86,7 @@ def process_configuration(gal):
   return {"rewards": sb_rewards}
 
 
-class ConfigurationConverterForm(Form):
+class ConfigurationConverterForm(FlaskForm):
     yaml_file = FileField("Upload your GAListener configuration", [wtforms.validators.input_required()])
 
 
@@ -108,17 +108,17 @@ class GAListenerToSuperbVoteView(FlaskView):
                        '<a href="http://yaml-online-parser.appspot.com/">this tool</a> '
                        'to determine the problem.'),
                 "formerror")
-            return render_template("yamlchecker/main.html", form=form)
+            return render_template("superbvote/convert.html", form=form)
 
         if not isinstance(yaml, dict):
             flash("This YAML file does not represent a dictionary (mapping).", "formerror")
-            return render_template("yamlchecker/main.html", form=form)
+            return render_template("superbvote/convert.html", form=form)
 
         try:
             result = process_configuration(yaml)
         except Exception as e:
             flash("This YAML file does not look like a GAListener configuration.", "formerror")
-            return render_template("yamlchecker/main.html", form=form)
+            return render_template("superbvote/convert.html", form=form)
 
         return make_response((dump(result), 200, {"Content-Type": "application/yaml",
                                                   "Content-Disposition": "attachment; filename=superbvote_config.yml"}))
